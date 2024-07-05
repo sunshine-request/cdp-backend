@@ -14,58 +14,33 @@ clean:
 	find . -name '*.pyo' -exec rm -f {} +
 	find . -name '*~' -exec rm -f {} +
 	find . -name '__pycache__' -exec rm -fr {} +
-	rm -fr .coverage*
+	rm -fr .coverage
 	rm -fr coverage.xml
 	rm -fr htmlcov
 	rm -fr .pytest_cache
 	rm -fr .mypy_cache
-	rm -fr index
-	rm -fr abc123-cdp_*-transcript.json
-	rm -fr test.err
-	rm -fr test.out
-	rm -fr *-thumbnail.*
-	rm -fr test-clipped.*
 
 # install with all deps
 install:
-	pip install --no-cache-dir -e '.[pipeline,functions,lint,test,docs,dev]'
-	pip install --no-cache-dir --force-reinstall --upgrade \
-		'faster-whisper @ git+https://github.com/guillaumekln/faster-whisper.git'
+	pip install -e '.[lint,test,docs,dev]'
 
 # lint, format, and check all files
 lint:
 	pre-commit run --all-files
 
-# run library tests
-test-library:
+# run tests
+test:
 	pytest --cov-report xml --cov-report html --cov=cdp_backend cdp_backend/tests
-
-# run functions tests
-test-functions:
-	pytest cdp_backend/infrastructure/gcloud-functions/
 
 # run lint and then run tests
 build:
 	just lint
-	just test-library
-	just test-functions
+	just test
 
 # generate Sphinx HTML documentation
 generate-docs:
 	rm -f docs/cdp_backend*.rst
 	rm -f docs/modules.rst
-	rm -f docs/_static/cdp_database_diagram.*
-	create_cdp_database_uml \
-		-o docs/_static/cdp_database_diagram.dot
-	dot \
-		-T jpg \
-		-o docs/_static/cdp_database_diagram.jpg docs/_static/cdp_database_diagram.dot
-	create_cdp_ingestion_models_doc \
-		-t docs/ingestion_models.template \
-		-o docs/ingestion_models.md
-	create_cdp_transcript_model_doc \
-		-t docs/transcript_model.template \
-		-o docs/transcript_model.md
 	sphinx-apidoc -o docs cdp_backend **/tests
 	python -msphinx "docs" "docs/_build"
 

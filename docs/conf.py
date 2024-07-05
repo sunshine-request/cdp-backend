@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-
+# -*- coding: utf-8 -*-
+#
 # cdp-backend documentation build configuration file, created by
 # sphinx-quickstart on Fri Jun  9 13:47:02 2017.
 #
@@ -19,15 +20,11 @@
 #
 import os
 import sys
-from typing import TYPE_CHECKING, List
 
 import cdp_backend
 
-if TYPE_CHECKING:
-    from sphinx.application import Sphinx
-    from sphinx.ext.autodoc import Options
-
 sys.path.insert(0, os.path.abspath(".."))
+
 
 
 # -- General configuration ---------------------------------------------
@@ -48,7 +45,7 @@ extensions = [
     "sphinx_copybutton",
     # Doc installs
     "m2r2",
-    "numpydoc",
+    "numpydoc", 
 ]
 
 copybutton_prompt_text = r">>> |\.\.\. |\$ |In \[\d*\]: | {2,5}\.\.\.: | {5,8}: "
@@ -95,7 +92,7 @@ release = cdp_backend.__version__
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = "en"
+language = None
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -120,7 +117,7 @@ html_theme = "furo"
 # theme further.  For a list of options available for each theme, see the
 # documentation.
 #
-# html_theme_options = {}
+html_theme_options = {}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -184,34 +181,6 @@ texinfo_documents = [
         "cdp-backend Documentation",
         author,
         "cdp_backend",
-        (
-            "Data storage utilities and processing "
-            "pipelines used by CDP instances."
-        ),
+        "Data storage utilities and processing pipelines used by CDP instances.",
     ),
 ]
-
-# -- Extra docstring configurations ------------------------------------
-
-
-def no_namedtuple_attrib_docstring(
-    app: "Sphinx",
-    what: str,
-    name: str,
-    obj: object,
-    options: "Options",
-    lines: List[str],
-) -> None:
-    is_namedtuple_docstring = len(lines) == 1 and lines[0].startswith(
-        "Alias for field number"
-    )
-    if is_namedtuple_docstring:
-        # We don't return, so we need to purge in-place
-        del lines[:]
-
-
-def setup(app: "Sphinx") -> None:
-    app.connect(
-        "autodoc-process-docstring",
-        no_namedtuple_attrib_docstring,
-    )

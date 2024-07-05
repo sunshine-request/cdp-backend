@@ -20,23 +20,21 @@ Ready to contribute? Here's how to set up `cdp-backend` for local development.
     ```bash
     git clone git@github.com:{your_name_here}/cdp-backend.git
     ```
-3. Install dependencies:
 
-    - [graphviz](https://graphviz.org/download/)
-    - [ffmpeg](https://ffmpeg.org/download.html)
-    - [rust toolchain](https://rustup.rs) (required by [tokenizers](https://github.com/huggingface/tokenizers))
-    - [just](https://github.com/casey/just)
+3. Install [just](https://github.com/casey/just).
 
-    After installation you may need to reload your shell.
+    Cargo: `cargo install just`
+    Windows: `scoop install just` or `choco install just`
+    MacOS: `brew install just`
 
-4. Install the project in editable mode. (It is also recommended to work in a [virtualenv](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments) or [anaconda](https://www.anaconda.com/products/distribution) environment):
+4. Install the project in editable mode. (It is also recommended to work in a virtualenv or anaconda environment):
 
     ```bash
     cd cdp-backend/
     just install
     ```
 
-    If this doesn't work try: `pip install -e '.[pipeline,functions,lint,test,docs,dev]'`.
+    If this doesn't work try: `pip install -e '.[lint,test,docs,dev]'`.
 
 5. Create a branch for local development:
 

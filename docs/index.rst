@@ -1,5 +1,5 @@
 Welcome to cdp-backend's documentation!
-=======================================
+======================================
 
 .. toctree::
    :hidden:
@@ -8,11 +8,7 @@ Welcome to cdp-backend's documentation!
 
    Overview <self>
    installation
-   Package Modules <modules>
-   Ingestion Models <ingestion_models>
-   Event Gather Pipeline <event_gather_pipeline>
-   Database Schema <database_schema>
-   Transcript Model <transcript_model>
+   Package modules <modules>
    contributing
 
 .. mdinclude:: ../README.md

@@ -21,28 +21,5 @@ import pytest
 
 
 @pytest.fixture
-def resources_dir() -> Path:
-    return Path(__file__).parent / "resources"
-
-
-EXAMPLE_VIDEO_FILENAME = "example_video.mp4"
-EXAMPLE_MKV_VIDEO_FILENAME = "example_video.mkv"
-EXAMPLE_VIDEO_HD_FILENAME = "example_video_large.mp4"
-EXAMPLE_YOUTUBE_VIDEO_EMBEDDED = "https://www.youtube.com/embed/XALBGkjkUPQ"
-EXAMPLE_YOUTUBE_VIDEO_PARAMETER = "https://www.youtube.com/watch?v=XALBGkjkUPQ"
-EXAMPLE_YOUTUBE_VIDEO_SHORT = "https://youtu.be/watch?v=XALBGkjkUPQ"
-EXAMPLE_M3U8_PLAYLIST_URI = (
-    "https://archive-stream.granicus.com/OnDemand/_definst_/mp4:oakland/"
-    "oakland_fa356edd-b6a3-4532-8118-3ce4881783f4.mp4/playlist.m3u8"
-)
-
-# City of Versailles, Kentucky
-EXAMPLE_VIMEO = "https://vimeo.com/503166067"
-
-# City of Chicago, Illinois
-EXAMPLE_VIMEO_SHOWCASE = "https://vimeo.com/showcase/6277394/video/722690793"
-
-
-@pytest.fixture
-def example_video(resources_dir: Path) -> Path:
-    return resources_dir / EXAMPLE_VIDEO_FILENAME
+def data_dir() -> Path:
+    return Path(__file__).parent / "data"

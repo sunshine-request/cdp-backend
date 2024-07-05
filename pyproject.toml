@@ -11,23 +11,15 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "cdp-backend"
 description = "Data storage utilities and processing pipelines used by CDP instances."
-keywords = [
-  "civic technology",
-  "open government",
-]
+keywords = []
 readme = "README.md"
 requires-python = ">=3.8"
 license = { text = "MIT License" }
 authors = [
-  { name = "Eva Maxfield Brown", email = "evamaxfieldbrown@gmail.com" },
-  { name = "To Huynh" },
-  { name = "Isaac Na" },
-  { name = "Council Data Project Contributors" },
+  { email = "evamaxfieldbrown@gmail.com", name = "Eva Maxfield Brown, To Huynh, Isaac Na, Council Data Project Contributors" },
 ]
 classifiers = [
-  "Development Status :: 5 - Production/Stable",
-  "Intended Audience :: Developers",
-  "License :: OSI Approved :: MIT License",
+  "Development Status :: 4 - Beta",
   "Natural Language :: English",
   "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
@@ -35,17 +27,7 @@ classifiers = [
   "Programming Language :: Python :: 3.11",
 ]
 dynamic = ["version"]
-dependencies = [
-  "aiohttp>=3.8.1",
-  "backoff>=2.2",
-  "dataclasses-json>=0.5",
-  "fireo~=1.5",
-  "fsspec",  # Version pin set by gcsfs
-  "gcsfs>=2022.7.1",
-  "google-cloud-firestore",  # Version pin set by fireo
-  "PyYAML>=5.4.1",
-  "requests>=2.26.0",
-]
+dependencies = []
 
 [project.urls]
 Homepage = "https://github.com/CouncilDataProject/cdp-backend"
@@ -56,56 +38,18 @@ Documentation = "https://CouncilDataProject.github.io/cdp-backend"
 # extra dependencies
 # https://peps.python.org/pep-0621/#dependencies-optional-dependencies
 [project.optional-dependencies]
-pipeline = [
-  "dask[distributed]>=2021.7.0",
-  # We can't ship faster-whisper until they release a pypi package
-  # Install will have to make it a separate command
-  # "faster-whisper @ git+https://github.com/guillaumekln/faster-whisper.git",
-  "ffmpeg-python>=0.2.0",
-  "graphviz>=0.16",
-  "imageio>=2.18",
-  "imageio-ffmpeg>=0.4",
-  "m3u8-To-MP4==0.1.10",
-  "nltk>=3.6",
-  "numpy>=1.0",
-  "openai-whisper>=20230117",
-  "pandas>=1.2",
-  "prefect>=1.2,<2",
-  "pyarrow>=8.0",
-  "pydub>=0.25.1",
-  "rapidfuzz>=2.0",
-  "spacy>=3.4",
-  "spacy-transformers>=1.1",
-  "torch>=1.10",
-  "tqdm>=4.62",
-  "transformers>=4.16",
-  "vimeo_downloader>=0.4",
-  "yt-dlp>=2023.2.17",
-]
-functions = [
-  "flask==2.1.0",
-  "functions-framework==3.1.0",
-  "ffmpeg-python==0.2.0",
-]
 lint = [
   "black>=22.3.0",
   "check-manifest>=0.48",
   "ruff>=0.0.216",
   "mypy>=0.790",
   "pre-commit>=2.20.0",
-  "types-requests>=2.28.5",
-  "types-pytz>=2022.1.2",
-  "types-PyYAML>=6.0.11",
 ]
 test = [
-  # Pytest
   "coverage>=5.1",
   "pytest>=5.4.3",
   "pytest-cov>=2.9.0",
   "pytest-raises>=0.11",
-  # Extras
-  "networkx>=2.5",
-  "pydot>=1.4",
 ]
 docs = [
   # Sphinx + Doc Gen + Styling
@@ -119,26 +63,13 @@ docs = [
   "docutils>=0.18,<0.19",
 ]
 dev = [
-  "bokeh",  # Used in dask / distributed for dashboard
   "ipython>=8.4.0",
 ]
 
 # entry points
 # https://peps.python.org/pep-0621/#entry-points
 [project.entry-points."console_scripts"]
-clean_cdp_database = "cdp_backend.bin.clean_cdp_database:main"
-clean_cdp_filestore = "cdp_backend.bin.clean_cdp_filestore:main"
-create_cdp_database_uml = "cdp_backend.bin.create_cdp_database_uml:main"
-create_cdp_ingestion_models_doc = "cdp_backend.bin.create_cdp_ingestion_models_doc:main"
-create_cdp_transcript_model_doc = "cdp_backend.bin.create_cdp_transcript_model_doc:main"
-run_cdp_event_gather = "cdp_backend.bin.run_cdp_event_gather:main"
-run_cdp_event_index_generation = "cdp_backend.bin.run_cdp_event_index_generation:main"
-process_cdp_event_index_chunk = "cdp_backend.bin.process_cdp_event_index_chunk:main"
-search_cdp_events = "cdp_backend.bin.search_cdp_events:main"
-process_special_event = "cdp_backend.bin.process_special_event:main"
-add_content_hash_to_sessions = "cdp_backend.bin.add_content_hash_to_sessions:main"
-store_cdp_metadata_document = "cdp_backend.bin.store_cdp_metadata_document:main"
-get_cdp_infrastructure_stack = "cdp_backend.bin.get_cdp_infrastructure_stack:main"
+calc-string-length = "cdp_backend.bin.str_len:main"
 
 # build settings
 # https://setuptools.pypa.io/en/latest/userguide/pyproject_config.html
@@ -150,17 +81,7 @@ include-package-data = true
 exclude = ["*docs/*", "*tests/*"]
 
 [tool.setuptools.package-data]
-"*" = [
-  "*.yaml",
-  "py.typed",
-  "*.csv",
-  "*infrastructure/*.rules",
-  "*infrastructure/Justfile",
-  "*infrastructure/*.json",
-  "*infrastructure/**/.gcloudignore",
-  "*infrastructure/**/requirements.txt",
-  "*infrastructure/**/README.md",
-]
+"*" = ["*.yaml", "py.typed"]
 
 # tools
 [tool.black]
@@ -210,20 +131,6 @@ ignore = [
   "Justfile",
   ".cookiecutter.yaml",
   "*docs/*",
-  "codecov.yml",
-  "dev-infrastructure/**",
-  "example-configs/*",
-  "*_captions.vtt",
-  "*_transcript.json",
-  "*-transcript.json",
-  "*.vtt",
-  "*example_*.mp4",
-  "*example_*.mkv",
-  "*.parquet",
-  "*fake_*",
-  "*generated_*",
-  "*.wav",
-  "Dockerfile",
 ]
 
 [tool.mypy]

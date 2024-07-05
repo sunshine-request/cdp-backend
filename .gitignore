@@ -111,37 +111,3 @@ ENV/
 
 # VSCode
 .vscode
-
-# Vim swap files
-*.swp
-*.swo
-
-# Project specific
-cdp_database_diagram.*
-cdp_event_gather_flow_*
-ingestion_models.md
-transcript_model.md
-test.err
-test.out
-tfidf-*.parquet
-index/
-index-chunks/
-7490ea6cf56648d60a40dd334e46e5d7de0f31dde0c7ce4d85747896fdd2ab42-*
-abc123-cdp*
-*-person-picture
-*-seat-image
-dev-infrastructure/cors.json
-dev-infrastructure/firebase.json
-dev-infrastructure/firestore.indexes.json
-dev-infrastructure/firestore.rules
-dev-infrastructure/storage.rules
-dev-infrastructure/Justfile
-dev-infrastructure/gcloud-functions/*
-dev-infrastructure/lifecycle-rules.json
-test-clipped.*
-faster-whisper-models/
-
-# Common credentials directories
-.keys/
-.credentials/
-.creds/

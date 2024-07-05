@@ -178,6 +178,44 @@ def remove_local_file(filepath: str | Path) -> None:
     log.debug(f"Removed {filepath} from local file system.")
 
 
+def remove_remote_file(
+    credentials_file: str,
+    google_cloud_storage_url: str
+) -> None:
+    """
+    Deletes a file from the Google Cloud file system.
+
+    Parameters
+    ----------
+    credentials_file: str
+        The path to the Google Service Account credentials JSON file used
+        to initialize the file store connection.
+    filepath: str
+        The filepath of the local file to delete.
+    """
+    fs = initialize_gcs_file_system(credentials_file)
+
+    if("*" in google_cloud_storage_url):
+        print("No mass deletion allowed")
+        return
+
+    if not fs.exists(f"{google_cloud_storage_url}"):
+        log.debug(f"File not found on GCS: {google_cloud_storage_url}")
+        print(f"File not found on GCS: {google_cloud_storage_url}")
+        return
+
+
+
+    # Remove a file from bucket
+    try:
+        fs.rm(f"{google_cloud_storage_url}")
+    # Handle file not found
+    except FileNotFoundError:
+        pass
+
+    log.debug(f"Removed {google_cloud_storage_url} from Google Cloud file system.")
+
+
 def upload_file_and_return_link(
     credentials_file: str,
     bucket: str,
